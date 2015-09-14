@@ -34,12 +34,7 @@ app.get('/broken', function (req, res) {
     response.on('end', function() {
       console.log('requested content length: ', response.headers['content-length']);
       console.log('parsed content length: ', data.length);
-      res.writeHead(200, {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename=broken-test.pdf',
-        'Content-Length': data.length
-      });
-      res.end(data);
+      res.send(data);
     });
   });
 
@@ -51,8 +46,7 @@ app.get('/download', function (req, res) {
     method: 'GET',
     host: 'localhost',
     port: port,
-    path: '/file',
-    encoding: null
+    path: '/file'
   };
 
   var request = http.request(options, function(response) {
